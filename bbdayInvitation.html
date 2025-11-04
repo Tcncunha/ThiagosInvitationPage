@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Invitation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+        }
+
+        .phone-container {
+            width: 100%;
+            max-width: 420px;
+            aspect-ratio: 9/19.5;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #0a0e27 0%, #1a1a2e 100%);
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .code-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #00ff41;
+            padding: 20px;
+            overflow: hidden;
+            animation: scrollCode 20s linear infinite;
+        }
+
+        @keyframes scrollCode {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            padding: 50px 25px 30px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .glitch-text {
+            font-size: 26px;
+            font-weight: bold;
+            color: #00ff41;
+            text-shadow: 
+                2px 2px 0px #ff00de,
+                -2px -2px 0px #00ffff;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% {
+                text-shadow: 
+                    2px 2px 0px #ff00de,
+                    -2px -2px 0px #00ffff;
+            }
+            95% {
+                text-shadow: 
+                    -2px 2px 0px #00ffff,
+                    2px -2px 0px #ff00de;
+            }
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #00ff41;
+            opacity: 0.7;
+        }
+
+        .location-image {
+            width: 100%;
+            height: 140px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 15px 0;
+            border: 2px solid #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .location-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .details {
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px solid #00ff41;
+            border-radius: 15px;
+            padding: 20px 18px;
+            backdrop-filter: blur(10px);
+        }
+
+        .detail-row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-size: 14px;
+            color: #00ff41;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .detail-value {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #00ff41;
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-accept {
+            background: linear-gradient(135deg, #00ff41 0%, #00cc33 100%);
+            color: #000;
+        }
+
+        .btn-accept.glow {
+            animation: glowAccept 1s ease-in-out;
+        }
+
+        .btn-decline {
+            background: linear-gradient(135deg, #ff0040 0%, #cc0033 100%);
+            color: #fff;
+        }
+
+        .btn-decline.glow {
+            animation: glowDecline 1s ease-in-out;
+        }
+
+        @keyframes glowAccept {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 255, 65, 1), 0 0 60px rgba(0, 255, 65, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes glowDecline {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 0, 64, 1), 0 0 60px rgba(255, 0, 64, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #00ff41;
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 0 50px rgba(0, 255, 65, 0.5);
+        }
+
+        .modal-title {
+            color: #00ff41;
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        iframe {
+            border: none;
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn-cancel {
+            background: linear-gradient(135deg, #ff0040 0%, #cc0033 100%);
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="screen">
+            <div class="code-background">
+                function celebrateBirthday() {<br>
+                &nbsp;&nbsp;const age = 38;<br>
+                &nbsp;&nbsp;const name = "Thiago";<br>
+                &nbsp;&nbsp;if (age === 38) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;party.initialize();<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;guests.invite();<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;cake.prepare();<br>
+                &nbsp;&nbsp;}<br>
+                }<br>
+            </div>
+
+            <div class="content">
+                <div class="header">
+                    <div class="glitch-text">THIAGO'S TURNING 38</div>
+                    <div class="subtitle">>>> SYSTEM INVITATION INITIALIZED</div>
+                </div>
+
+                <div class="location-image">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.vKNiLV29MZRMqpxgVGQGpgHaFj?rs=1&pid=ImgDetMain&o=7&rm=3" alt="HALA Świebodzki">
+                </div>
+
+                <div class="details">
+                    <div class="detail-row">
+                        <div class="detail-label">Date:</div>
+                        <div class="detail-value">15/11/2025 At 4 PM</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Location:</div>
+                        <div class="detail-value">HALA Świebodzki, plac Orląt Lwowskich 20B, 53-605 Wrocław</div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-accept" id="acceptBtn" onclick="handleAccept()">Accept</button>
+                    <button class="btn btn-decline" id="declineBtn" onclick="handleDecline()">Decline</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal with JotForm embedded -->
+    <div class="modal" id="nameModal">
+        <div class="modal-content">
+            <div class="modal-title">Confirm Your Attendance</div>
+            <iframe
+                id="JotFormIFrame"
+                title="Birthday RSVP"
+                allowtransparency="true"
+                allowfullscreen="true"
+                allow="geolocation; microphone; camera"
+                src="https://form.jotform.com/253071494501048"
+            ></iframe>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleAccept() {
+            document.getElementById('nameModal').classList.add('show');
+        }
+
+        function handleDecline() {
+            alert("❌ RSVP Declined. Maybe next time!");
+        }
+
+        function closeModal() {
+            document.getElementById('nameModal').classList.remove('show');
+        }
+
+        // Glow animation loop
+        function startGlowAnimation() {
+            const acceptBtn = document.getElementById('acceptBtn');
+            const declineBtn = document.getElementById('declineBtn');
+            
+            acceptBtn.classList.add('glow');
+            setTimeout(() => acceptBtn.classList.remove('glow'), 1000);
+            
+            setTimeout(() => {
+                declineBtn.classList.add('glow');
+                setTimeout(() => declineBtn.classList.remove('glow'), 1000);
+            }, 5000);
+        }
+
+        function animationLoop() {
+            startGlowAnimation();
+            setTimeout(animationLoop, 12000);
+        }
+
+        window.addEventListener('load', () => setTimeout(animationLoop, 1000));
+    </script>
+</body>
+</html>
